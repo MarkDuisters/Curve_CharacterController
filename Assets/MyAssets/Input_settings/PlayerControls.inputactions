@@ -1,0 +1,109 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "PlayerControls",
+            "id": "3702f0f1-5220-4304-95b3-5a4ad40f286e",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "bb6d5c94-eed5-4c40-bdd9-2039e373f290",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "c4fadab2-8ec8-40c9-b1d4-3a4107256efa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "V",
+                    "id": "865714f1-e6d1-4de9-923f-8c7ac97e635a",
+                    "path": "1DAxis",
+                    "interactions": "Hold,Press,Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "positive",
+                    "id": "55b5b925-f3d5-418c-b120-30f13c1b644e",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "negative",
+                    "id": "53f6cce2-ecad-4981-adee-5deb42d9734e",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "H",
+                    "id": "8d471350-7d79-4379-adf7-6cc9b68317b2",
+                    "path": "1DAxis",
+                    "interactions": "Hold,Press,Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "fbcd65e1-9dba-4186-8193-c75d1ae58887",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "d4d1c4f9-824e-440d-b245-f442f9b238de",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "ac96c2a2-8a75-4b7e-9841-8d8463b86b9e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Hold,Press,Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
