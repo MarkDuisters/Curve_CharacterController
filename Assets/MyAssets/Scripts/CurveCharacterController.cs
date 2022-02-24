@@ -1,18 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CurveCharacterController : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+//settings;
+    [SerializeField] float maxSpeed;
+    [SerializeField] AnimationCurve accelerationCurve;
+    [SerializeField] AnimationCurve jumpCurve;
+    [SerializeField] AnimationCurve fallCurve;
+
+
+
+    //fetch data
+    CharacterController getCharacterController { get { return GetComponent<CharacterController>(); } }
+    bool grounded { get { return getCharacterController.isGrounded; } }
+    PlayerInput getInput { get { return GetComponent<PlayerInput>(); } }
+
+
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
+     
+        print("grounded: " + grounded);
+        print("Getcomponent: " + GetComponent<CharacterController>().isGrounded);
     }
+
 }

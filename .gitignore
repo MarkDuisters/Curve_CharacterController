@@ -6,6 +6,10 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+#Ignore the test scenes data folder to prevent large lightmaps from being pushed.
+**/Scenes/TestEnviro
+
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/

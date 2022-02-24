@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.alexismorin.lightprobepopulator": {
+      "version": "https://github.com/broberson/Light-Probe-Populator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "86b127830089ccbb6b8246e392988e66e9cd1ad2"
+    },
     "com.autodesk.fbx": {
       "version": "4.1.1",
       "depth": 2,
