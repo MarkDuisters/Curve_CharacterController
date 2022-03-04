@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,8 @@ public class CurveCharacterController : MonoBehaviour
 {
 
     //settings;
-    [SerializeField] float maxSpeed;
-    //  [SerializeField] AnimationCurve accelerationCurve;
+    [SerializeField] float speed;
+    [SerializeField] AnimationCurve accelerationCurve;
     // [SerializeField] AnimationCurve jumpCurve;
     [SerializeField] float jumpMultiplier = 10;
     [SerializeField] float jumpGravityMultiplier = 2;
@@ -20,9 +21,10 @@ public class CurveCharacterController : MonoBehaviour
     //private
     PlayerActionControls getInputs;
     bool moveIsPressed = false;
-    Vector3 moveDir;
 
+    Vector3 moveDir;
     Rigidbody rb;
+    float sampleTime = 0f;
 
 
     //fetch data
@@ -42,9 +44,10 @@ public class CurveCharacterController : MonoBehaviour
     {
         getInputs.Player.Jump.performed += _ => DoWhenJump();
 
-        //with this state we can controll a bool in order to detect if the button still is being pressed
-        getInputs.Player.Move.performed += _ => moveIsPressed = true;
-        getInputs.Player.Move.canceled += _ => moveIsPressed = false;
+        //with this state we can control a bool in order to detect if the button still is being pressed
+        //an alternative would be using the .IsPressed() method from the current action.
+        /* getInputs.Player.Move.performed += _ => moveIsPressed = true;
+         getInputs.Player.Move.canceled += _ => moveIsPressed = false;*/
 
 
     }
@@ -59,14 +62,40 @@ public class CurveCharacterController : MonoBehaviour
     }
 
 
+    void Update()
+    {
+        moveIsPressed = getInputs.Player.Move.IsPressed();
+
+
+        //when moving count the sample time up, otherwise count it down. Then clamp it between 0-1.
+        if (moveIsPressed)
+        {
+            sampleTime += Time.deltaTime;
+            sampleTime = Mathf.Clamp01(sampleTime);
+        }
+        else
+        {
+            sampleTime -= Time.deltaTime;
+            sampleTime = Mathf.Clamp01(sampleTime);
+
+
+        }
+
+
+    }
+
+    private float SampleAccelerationCurve()
+    {
+        return (accelerationCurve.Evaluate(sampleTime));
+    }
 
     void FixedUpdate()
     {
 
-        BetterGravity();
+
         Movement();//Controls movement vectors based on input, gravity and jump force.
 
-
+        BetterGravity();
 
     }
 
@@ -87,12 +116,12 @@ public class CurveCharacterController : MonoBehaviour
     void Movement()
     {
 
-        if (!getInputs.Player.Move.IsPressed())
+        if (!moveIsPressed)
         {
             return;
         }
 
-        moveDir = MovementDirection() * maxSpeed * Time.deltaTime;
+        moveDir = MovementDirection() * SampleAccelerationCurve() * speed;
         transform.rotation = LookDirection(moveDir);
 
         moveDir.y = rb.velocity.y;//We keep our current velocity. This way we can use forces for gravity, jumping, etc...
@@ -107,7 +136,7 @@ public class CurveCharacterController : MonoBehaviour
     {
         Vector2 movementInput = getInputs.Player.Move.ReadValue<Vector2>();
         Vector3 convertToVector3 = new Vector3(movementInput.x, 0, movementInput.y);
-        return convertToVector3 * maxSpeed;
+        return convertToVector3;
 
     }
 
@@ -123,15 +152,16 @@ public class CurveCharacterController : MonoBehaviour
     void BetterGravity()
     {
         //When falling appy the extra gravity. When moving up and not pressing the jump button apply a different gravity to determine jump height.
-        if (rb.velocity.y < 0)
+        if (rb.velocity.y < 0f)
         {
             rb.velocity += Vector3.up * Physics.gravity.y * fallGravityMultiplier * Time.deltaTime;
         }
-        else if (rb.velocity.y > 0 && !getInputs.Player.Jump.IsPressed())
+        else if (rb.velocity.y > 0f && !getInputs.Player.Jump.IsPressed())
         {
             rb.velocity += Vector3.up * Physics.gravity.y * jumpGravityMultiplier * Time.deltaTime;
 
         }
+
 
     }
 
