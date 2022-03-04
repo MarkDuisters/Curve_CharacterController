@@ -6,7 +6,7 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
-#Ignore the test scenes data folder to prevent large lightmaps from being pushed.
+#Ignore the test scene's data folder to prevent large lightmaps from being pushed.
 **/Scenes/TestEnviro
 
 
